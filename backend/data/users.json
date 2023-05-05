@@ -1,0 +1,17 @@
+[
+    {
+        "id":"test001",
+        "password":"0001",
+        "name":"오바마"
+    },
+    {
+        "id":"test002",
+        "password":"0002",
+        "name":"트럼프"
+    },
+    {
+        "id":"test002",
+        "password":"0003",
+        "name":"바이든"
+    }
+]
