@@ -10,7 +10,21 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    // Vue.js 애플리케이션에서 프록시를 설정하는 방법 중 하나로, proxyTable 객체를 사용하여 API 요청을 로컬 개발 서버에서 처리하도록 지시하는 것입니다.
+    /**
+     * /api로 시작하는 요청이 Vue.js 개발 서버에 도달하면, 해당 요청을 http://localhost:3000/api 경로로 전달하는 것을 명시하고 있습니다. 
+     * 즉, 로컬 개발 서버가 클라이언트에서 API 요청을 받으면 해당 요청을 백엔드 서버(여기서는 http://localhost:3000)로 전달하여 처리하도록 설정하는 것입니다. 
+     * 여기서는 http://localhost:3000/api를 입력하여 백엔드 서버의 /api 엔드포인트로 요청을 전달하도록 지시하였습니다. 
+     */
+    proxyTable: {
+      '/api': {
+        target: 'http://localhost:3000/api', // target 속성에는 백엔드 서버의 주소를 입력합니다. 
+        changeOrigin: true, // changeOrigin 속성은 백엔드 서버의 응답 헤더에서 Access-Control-Allow-Origin을 변경하도록 지시하는 것으로, CORS 에러를 방지할 수 있습니다. 
+        pathRewrite:{ // pathRewrite 속성은 요청 URL에서 /api를 제거하도록 지시하는 것으로, 요청 URL이 /api/getData라면, 실제로 전달되는 URL은 http://localhost:3000/getData가 됩니다.
+          '^/api':''
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
