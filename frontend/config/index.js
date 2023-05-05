@@ -38,11 +38,15 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    // Vue.js 애플리케이션의 진입점인 index.html 파일의 경로를 지정합니다. 이 경로는 빌드 후에 backend/public 폴더 내부에 위치합니다.
+    index: path.resolve(__dirname, '../../backend/public/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    // 빌드된 파일이 저장될 루트 디렉토리의 경로를 지정합니다. 위 설정에서는 backend/public 폴더를 지정하여 빌드된 파일이 해당 폴더에 저장됩니다.
+    assetsRoot: path.resolve(__dirname, '../../backend/public'),
+    // 정적 파일들이 저장될 폴더의 이름을 지정합니다. 아래 설정에서는 static 폴더에 저장되므로 backend/public/static 경로에 정적 파일들이 저장됩니다.
     assetsSubDirectory: 'static',
+    // 빌드된 파일들이 서비스되는 경로를 지정합니다. 아래 설정에서는 빌드된 파일들이 루트 경로(/)에서 서비스되므로, index.html 파일에서 정적 파일들을 로드할 때 경로를 /static/파일이름과 같이 지정해야 합니다.
     assetsPublicPath: '/',
 
     /**
