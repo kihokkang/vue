@@ -42,11 +42,5 @@ router.post('/', function(req, res, next) {
     })(req, res, next); // 미들웨어 호출
 });
 
-
-
-
-
-
-
 // 'module.exports'는 Node.js에서 모듈을 내보내기 위한 전역 개체입니다. 이 코드에서는 'router' 변수를 'module.exports'에 할당하여 외부에서 사용할 수 있도록 합니다.
 module.exports = router;

@@ -2,7 +2,7 @@
     <div v-if="user">
         <h1>Current User</h1>
         <p>ID: {{user.id}}</p>
-        <p>password: {{user.password}}</p>
+        <p>Password: {{user.password}}</p>
         <p>Name: {{user.name}}</p>
     </div>
 </template>
