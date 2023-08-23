@@ -41,9 +41,13 @@ app.use(passport.initialize()); // Passport.js 미들웨어를 초기화합니�
 app.use(passport.session()); // 세션을 사용할 때에는 passport.session() 미들웨어를 사용합니다. 이 미들웨어는 req.session 객체를 사용하여 사용자 세션을 관리합니다. (passport.session()은 passport.initialize() 이후에 등록되어야 합니다)
 app.use(express.static(path.join(__dirname, 'public')));
 
+/**
+ * 라우터 등록 리스트
+ */
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
-app.use('/api/login', loginRouter);
+app.use('/api/auth', loginRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

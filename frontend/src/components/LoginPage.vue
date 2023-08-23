@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="onSubmit">
+        <form @submit.prevent="login">
             <p>아이디</p>
             <input type="text" name="id" v-model="id">
             <p>비밀번호</p>
@@ -19,10 +19,10 @@
             }
         },
         methods:{
-            onSubmit(){
+            login(){
                 const id = this.id;
                 const password = this.password;
-                this.$axios.post("api/login", {id,password}, {"Content-Type" : "application-json"})
+                this.$axios.post("api/auth/login", {id,password}, {"Content-Type" : "application-json"})
                 .then((res) => {
                     if(res.data.user) {
                         this.$store.commit("setUser", res.data.user);
@@ -34,7 +34,7 @@
                 .catch((err) => {
                     console.error(err);
                 });
-            }
+            },
         },
         created() {
         },
