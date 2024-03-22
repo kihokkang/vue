@@ -20,6 +20,7 @@
         },
         methods:{
             login(){
+                // throw new Error('Sentry Error'); // Sentry 에러 테스트용
                 const id = this.id;
                 const password = this.password;
                 this.$axios.post("api/auth/login", {id,password}, {"Content-Type" : "application-json"})
