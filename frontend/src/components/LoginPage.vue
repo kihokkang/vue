@@ -11,6 +11,8 @@
     </div>
 </template>
 <script>
+    import commonUtil from "../common/commonUtil"
+
     export default {
         data(){
             return{
@@ -23,6 +25,12 @@
                 // throw new Error('Sentry Error'); // Sentry 에러 테스트용
                 const id = this.id;
                 const password = this.password;
+
+                if(commonUtil.isEmpty(id) || commonUtil.isEmpty(password)){
+                    alert('ID나 Password를 입력해주세요');
+                    return;
+                }
+
                 this.$axios.post("api/auth/login", {id,password}, {"Content-Type" : "application-json"})
                 .then((res) => {
                     if(res.data.user) {
