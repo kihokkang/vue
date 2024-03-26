@@ -39,6 +39,8 @@ export default {
             const id = this.id;
             const password = this.password;
 
+            commonUtil.showToast('환영합니다!');
+
             if (commonUtil.isEmpty(id) || commonUtil.isEmpty(password)) {
                 alert('ID나 Password를 입력해주세요');
                 return;
