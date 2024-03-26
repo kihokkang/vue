@@ -39,8 +39,6 @@ export default {
             const id = this.id;
             const password = this.password;
 
-            commonUtil.showToast('환영합니다!');
-
             if (commonUtil.isEmpty(id) || commonUtil.isEmpty(password)) {
                 alert('ID나 Password를 입력해주세요');
                 return;
@@ -49,6 +47,7 @@ export default {
             this.$axios.post("api/auth/login", { id, password }, { "Content-Type": "application-json" })
                 .then((res) => {
                     if (res.data.user) {
+                        commonUtil.showToast(res.data.user.name + '님! 환영합니다!');
                         this.$store.commit("setUser", res.data.user);
                         this.$router.push({ name: "IndexPage" });
                     } else if (res.data.message) {
