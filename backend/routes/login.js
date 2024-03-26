@@ -40,6 +40,17 @@ router.post('/login', function(req, res, next) {
             return res.json({ user });
         });
     })(req, res, next); // 미들웨어 호출
+
+
+    // 에러 테스트용
+    // const shouldThrowError = true;
+
+    // // 에러를 발생시키는 조건이면 에러를 반환합니다.
+    // if (shouldThrowError) {
+    //     // 예시로 에러 객체를 생성하고 next() 함수에 전달하여 에러를 처리합니다.
+    //     const error = new Error('Error occurred while processing login.');
+    //     return next(error);
+    // }
 });
 
 // 로그아웃 api

@@ -7,7 +7,6 @@ import axios from './service/axios'
 import { store } from './store';
 import * as Sentry from "@sentry/vue" // 프론트 에러 추적을 위한 Sentry 라이브러리 도입
 
-
 // Vue.js 애플리케이션 전체에서 this.$axios 사용하여 axios 라이브러리의 HTTP 요청 기능을 호출할 수 있습니다. (Vue 객체에 axios 주입)
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
