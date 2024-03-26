@@ -1,5 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const users = require('../data/users.json');
+const bcrypt = require('bcryptjs');
+
 
 exports.config = (passport) => {
     // 로그인을 하면 user 정보를 세션에 저장하기 위해 호출
@@ -24,13 +26,18 @@ exports.config = (passport) => {
         const result = users.filter((user) => user.id === id);
         if(result.length > 0) {
             const user = result[0];
-            if(password === user.password){
-                done(null, user)
-            }else{
-                done(null, false, { message: "비밀번호가 틀립니다"});
-            }
+            bcrypt.compare(password, user.password, (err, isPasswordMatch) => {
+                if (err) {
+                    return done(err);
+                }
+                if (isPasswordMatch) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, { message: "비밀번호가 틀립니다" });
+                }
+            });
         } else {
-            done(null, false, { message: "회원 정보가 없습니다."})
+            return done(null, false, { message: "회원 정보가 없습니다." });
         }
     }));
 }

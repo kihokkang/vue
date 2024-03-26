@@ -1,7 +1,7 @@
 [
     {
         "id":"test001",
-        "password":"0001",
+        "password":"$2a$10$GYDD55RzLhCOTcz9B0kaJOjGhi3An8oZ2aIPKVArfpdLO8JKq93kq",
         "name":"오바마"
     },
     {
