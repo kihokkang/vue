@@ -25,6 +25,18 @@ axios.interceptors.request.use(function (config) {
 
     // ################### TO-DO ################### //
 
+    // 정상적으로 응답이 왔을때 데이터를 Sentry에 전달
+    // Sentry.addBreadcrumb({
+    //     category: 'axios-request',
+    //     message: 'Sending request',
+    //     data: {
+    //         url: config.url,
+    //         method: config.method,
+    //         headers: config.headers,
+    //         data: config.data
+    //     }
+    // });
+
 
     // 설정을 변경한 후에는 반드시 설정(config)을 반환해야 합니다.
     return config;
@@ -32,15 +44,15 @@ axios.interceptors.request.use(function (config) {
     // 요청 오류 시 수행할 로직을 작성합니다.
     console.error('요청 오류:', error);
 
-    // 오류가 났을때 요청 데이터를 Sentry에 전달합니다.
+    // 오류가 났을때 응답 데이터를 Sentry에 전달합니다.
     Sentry.addBreadcrumb({
-        category: 'axios-request',
-        message: 'Sending request',
+        category: 'axios-response',
+        message: 'Received response',
         data: {
-            url: config.url,
-            method: config.method,
-            headers: config.headers,
-            data: config.data
+            status: error.response.status,
+            statusText: error.response.statusText,
+            headers: error.response.headers,
+            data: error.config.data
         }
     });
     // 에러 내용 수집
@@ -75,15 +87,15 @@ axios.interceptors.response.use(function (response) {
     // 응답 오류 시 수행할 로직을 작성합니다.
     console.error('응답 오류:', error);
 
-     // 오류가 났을때 응답 데이터를 Sentry에 전달합니다.
-     Sentry.addBreadcrumb({
+    // 오류가 났을때 응답 데이터를 Sentry에 전달합니다.
+    Sentry.addBreadcrumb({
         category: 'axios-response',
         message: 'Received response',
         data: {
-            status: response.status,
-            statusText: response.statusText,
-            headers: response.headers,
-            data: response.data
+            status: error.response.status,
+            statusText: error.response.statusText,
+            headers: error.response.headers,
+            data: error.config.data
         }
     });
     
