@@ -8,6 +8,34 @@ const router = express.Router();
  * 인증되지 않은 요청이거나 로그인한 사용자가 없는 경우, 'user: null'을 JSON으로 반환합니다.
  * get 요청시, 로그인중이라면(passport의 deserializeUser()에서 저장한) req.user의 유저 정보를 보낸다
  */
+/**
+ * @swagger
+ * /auth/login:
+ *   get:
+ *     summary: 로그인된 사용자 정보를 가져옵니다.
+ *     description: 로그인된 사용자의 정보를 가져오는 엔드포인트입니다. 사용자가 로그인되어 있고 인증된 경우에만 사용 가능합니다.
+ *     responses:
+ *       '200':
+ *         description: 로그인된 사용자 정보를 성공적으로 가져온 경우
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   description: 로그인된 사용자의 정보
+ *       '401':
+ *         description: 사용자가 인증되지 않은 경우
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: null
+ *                   description: 사용자가 인증되지 않았음을 나타내는 값
+ */
 router.get('/login', function(req, res, next) {
     if(req.isAuthenticated() && req.user) {
         return res.json({ user: req.user });
@@ -19,6 +47,48 @@ router.get('/login', function(req, res, next) {
  * post 요청시, local 전략으로 로그인을 시도한다. 이때 사용되는 username과 password는 LocalStrategy에서 설정한 대로
  * req.body.id와 req.body.password가 된다. 로그인 성공시 user 정보를 보내주고, 로그인 실패시 그 이유를 알기 위해 info 값을 보내준다.
  * passport.authenticate()가 반환하는 값은 미들웨어 이므로 반드시 뒤에 (req,res,next)를 붙여서 호출 해주어야 한다.
+ */
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: 사용자 로그인을 시도합니다.
+ *     description: 사용자의 로그인을 시도하는 엔드포인트입니다. 인증이 성공하면 사용자 정보를 반환하고, 실패하면 에러 메시지를 반환합니다.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: 사용자 아이디
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: 사용자 비밀번호
+ *     responses:
+ *       '200':
+ *         description: 로그인 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   $ref: './models/User.js'
+ *       '401':
+ *         description: 로그인 실패
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: 에러 메시지
+ *     security: []
  */
 router.post('/login', function(req, res, next) {
     if(req.isAuthenticated()) {
@@ -40,17 +110,6 @@ router.post('/login', function(req, res, next) {
             return res.json({ user });
         });
     })(req, res, next); // 미들웨어 호출
-
-
-    // 에러 테스트용
-    // const shouldThrowError = true;
-
-    // // 에러를 발생시키는 조건이면 에러를 반환합니다.
-    // if (shouldThrowError) {
-    //     // 예시로 에러 객체를 생성하고 next() 함수에 전달하여 에러를 처리합니다.
-    //     const error = new Error('Error occurred while processing login.');
-    //     return next(error);
-    // }
 });
 
 // 로그아웃 api

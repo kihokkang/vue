@@ -6,6 +6,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var passport = require('passport');
 const database = require('./db.js');
+const { swaggerUi, specs } = require("./swagger/swagger")
 
 // require('./passport') 구문은 현재 파일에서 상대 경로 ./passport에 있는 모듈을 가져오는 것을 의미합니다. 
 // config 함수는 passport 객체를 인자로 받아, 필요한 설정을 수행합니다.
@@ -15,7 +16,6 @@ require('./passport').config(passport);
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 
 var app = express();
@@ -28,6 +28,7 @@ database(); // 데이터 베이스 실행
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
 // COOKIE_SECRET 환경 변수의 값으로 쿠키를 암호화하는 데 사용되는 미들웨어입니다.
 app.use(cookieParser(process.env.COOKIE_SECRET)); 
 app.use(session({
