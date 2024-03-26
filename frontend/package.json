@@ -12,6 +12,7 @@
   "dependencies": {
     "@sentry/vue": "^7.107.0",
     "axios": "^1.4.0",
+    "crypto-js": "^4.2.0",
     "is-empty": "^1.2.0",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
