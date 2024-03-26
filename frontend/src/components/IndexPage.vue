@@ -2,13 +2,14 @@
     <div v-if="user">
         <h1>Current User</h1>
         <p>ID: {{ user.id }}</p>
-        <p>Password: {{ user.password }}</p>
+        <p>Encrypted Password: {{ maskedPassword }}</p>
         <p>Name: {{ user.name }}</p>
         <!-- 로그아웃 버튼 -->
         <button @click="logout">로그아웃</button>
     </div>
 </template>
 <script>
+import commonUtil from "../common/commonUtil"
 export default {
     methods: {
         logout() {
@@ -46,7 +47,13 @@ export default {
         }
     },
     computed: {
-        user() { return this.$store.getters.user; } // computed 속성이므로 user 값은 상태(store) 또는 다른 연관된 속성이 변경될 때 자동으로 업데이트됩니다.
+        user() { return this.$store.getters.user; }, // computed 속성이므로 user 값은 상태(store) 또는 다른 연관된 속성이 변경될 때 자동으로 업데이트됩니다.
+        maskedPassword() {
+            const visibleChars = 15; // 보이는 문자 수
+            const visiblePart = this.user.password.substring(0, visibleChars);
+            const maskedChars = '...'; // 마스킹 처리할 문자
+            return visiblePart + maskedChars;
+        }
     }
 }
 </script>
