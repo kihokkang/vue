@@ -11,24 +11,6 @@
 <script>
 import commonUtil from "../common/commonUtil"
 export default {
-    methods: {
-        logout() {
-            // 서버에 로그아웃 요청 보내기
-            this.$axios.post("api/auth/logout")
-                .then((res) => {
-                    if (res.data.success) {
-                        // 로그아웃 성공 시 로컬 상태 초기화하고 로그인 페이지로 이동
-                        this.$store.commit("setUser", null);
-                        this.$router.push({ name: "LoginPage" });
-                    } else {
-                        alert("로그아웃에 실패했습니다.");
-                    }
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-        }
-    },
     created() {
         console.log('user :: ', this.$store.getters.user);
         if (this.$store.getters.user == null) {
@@ -54,6 +36,25 @@ export default {
             const maskedChars = '...'; // 마스킹 처리할 문자
             return visiblePart + maskedChars;
         }
-    }
+    },
+    methods: {
+        logout() {
+            // 서버에 로그아웃 요청 보내기
+            this.$axios.post("api/auth/logout")
+                .then((res) => {
+                    if (res.data.success) {
+                        // 로그아웃 성공 시 로컬 상태 초기화하고 로그인 페이지로 이동
+                        this.$store.commit("setUser", null);
+                        this.$router.push({ name: "LoginPage" });
+                    } else {
+                        alert("로그아웃에 실패했습니다.");
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+    },
+
 }
 </script>

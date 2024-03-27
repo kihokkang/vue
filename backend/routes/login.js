@@ -12,6 +12,8 @@ const router = express.Router();
  * @swagger
  * /auth/login:
  *   get:
+ *     tags:
+ *       - Authentication
  *     summary: 로그인된 사용자 정보를 가져옵니다.
  *     description: 로그인된 사용자의 정보를 가져오는 엔드포인트입니다. 사용자가 로그인되어 있고 인증된 경우에만 사용 가능합니다.
  *     responses:
@@ -52,6 +54,8 @@ router.get('/login', function(req, res, next) {
  * @swagger
  * /auth/login:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: 사용자 로그인을 시도합니다.
  *     description: 사용자의 로그인을 시도하는 엔드포인트입니다. 인증이 성공하면 사용자 정보를 반환하고, 실패하면 에러 메시지를 반환합니다.
  *     requestBody:
