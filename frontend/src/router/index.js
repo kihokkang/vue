@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import IndexPage from '@/components/IndexPage'
 import LoginPage from '@/components/LoginPage'
+import JoinMember from '@/views/JoinMember'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/Login',
       name: 'LoginPage',
       component: LoginPage
+    },
+    {
+      path: '/Register',
+      name: 'JoinMember',
+      component: JoinMember
     }
   ]
 })

@@ -22,9 +22,30 @@
           </ul>
           <div v-if="user" class="d-flex align-items-center">
             <span class="text-light me-3">{{ user.name + '님' }}</span>
-            <button class="btn btn-outline-secondary" type="button" @click="logout">Logout</button>
+
+            <!-- 드롭다운 토글 버튼 -->
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                마이페이지
+              </button>
+              <!-- 드롭다운 메뉴 -->
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/mypage">회원정보</a></li>
+                <li><a class="dropdown-item" href="/mypage">탈퇴</a></li>
+                <!-- 다른 메뉴 아이템 추가 가능 -->
+              </ul>
+            </div>
+
+            <!-- 로그아웃 버튼 -->
+            <button class="btn btn-outline-danger ms-3" type="button" @click="logout">Logout</button>
           </div>
-          <button v-else class="btn btn-outline-light" type="button">Login</button>
+          <div v-else>
+            <button class="btn btn-outline-light" type="button"
+              @click="$router.push({ name: 'LoginPage' })">Login</button>
+            <button class="btn btn-outline-light" type="button"
+              @click="$router.push({ name: 'JoinMember' })">Join</button>
+          </div>
         </div>
       </div>
     </nav>

@@ -327,9 +327,8 @@ const commonUtil = {
     * @returns {boolean} 비밀번호가 생성 규칙에 부합하는지 여부
     */
     validatePassword: function (password) {
-      console.log("비밀번호 검사");
       const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+\\\|\[\]{};:'",.<>?]).{8,15}$/;
-      return regex.test(passowrd);
+      return regex.test(password);
     },
     /**
     * 이메일 유효성을 검사합니다.
