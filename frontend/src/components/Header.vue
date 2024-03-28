@@ -31,8 +31,8 @@
               </button>
               <!-- 드롭다운 메뉴 -->
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="/mypage">회원정보</a></li>
-                <li><a class="dropdown-item" href="/mypage">탈퇴</a></li>
+                <li><a class="dropdown-item" @click="$router.push({ name: 'EditProfile' })">회원정보</a></li>
+                <li><a class="dropdown-item" @click="deleteUser()">탈퇴</a></li>
                 <!-- 다른 메뉴 아이템 추가 가능 -->
               </ul>
             </div>
@@ -74,6 +74,25 @@ export default {
         .catch((err) => {
           console.error(err);
         });
+    },
+    deleteUser() {
+      const userId = this.$store.getters.user.id
+      const confirmDelete = window.confirm('정말로 사용자를 삭제하시겠습니까?');
+
+      // 사용자가 확인을 누르면 삭제 요청을 보냅니다.
+      if (confirmDelete) {
+        this.$axios.delete(`/api/user/${userId}`)
+          .then(response => {
+            console.log('사용자 삭제 성공:', response.data);
+            alert("성공적으로 사용자가 삭제되었습니다.");
+            this.$store.commit("setUser", null);
+            this.$router.push({ name: "LoginPage" });
+          })
+          .catch(error => {
+            console.error('사용자 삭제 실패:', error.response.data);
+            // 사용자 삭제에 실패했습니다.
+          });
+      }
     }
   },
 }

@@ -8,11 +8,11 @@
               <form @submit.prevent="login">
                 <div class="mb-3">
                   <label for="id" class="form-label">아이디</label>
-                  <input type="text" class="form-control" id="id" name="id" v-model="id" required>
+                  <input type="text" class="form-control" id="id" name="id" v-model="id" required autocomplete="off">
                 </div>
                 <div class="mb-3">
                   <label for="password" class="form-label">비밀번호</label>
-                  <input type="password" class="form-control" id="password" name="password" v-model="password" required>
+                  <input type="password" class="form-control" id="password" name="password" v-model="password" required autocomplete="off">
                 </div>
                 <button type="submit" class="btn btn-primary">로그인</button>
               </form>

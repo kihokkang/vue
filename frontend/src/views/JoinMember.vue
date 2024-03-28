@@ -9,12 +9,12 @@
                             <div class="mb-3">
                                 <label for="id" class="form-label">아이디</label>
                                 <input type="text" class="form-control" id="id" v-model="userData.id"
-                                    required>
+                                    required autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">비밀번호</label>
                                 <input type="password" class="form-control" id="password" v-model="userData.password"
-                                    @blur="validateInput('password')" required>
+                                    @blur="validateInput('password')" required autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">이름</label>
