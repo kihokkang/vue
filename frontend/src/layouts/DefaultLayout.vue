@@ -40,6 +40,7 @@ export default {
   position: relative; /* 컨텐츠의 position을 relative로 설정 */
   z-index: 1; /* 헤더와 겹치는 부분을 뒤로 보냄 */
   height: calc(100vh - 120px); /* 화면 전체 높이에서 헤더와 푸터의 높이를 뺀 값으로 설정 */
-  overflow-y: auto; /* 컨텐츠가 높이를 초과할 경우 스크롤 표시 */
+  overflow-y: auto; /* 컨텐츠가 높이를 초과할 경우 세로 스크롤 표시 */
+  overflow-x: hidden; /* 컨텐츠가 너비를 초과할 경우 가로 스크롤 숨김 */
 }
 </style>

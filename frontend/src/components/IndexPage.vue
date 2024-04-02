@@ -1,16 +1,22 @@
 <template>
-    <div v-if="user">
-        <h1>Current User</h1>
-        <p>ID: {{ user.id }}</p>
-        <p>Encrypted Password: {{ maskedPassword }}</p>
-        <p>Name: {{ user.name }}</p>
-        <!-- 로그아웃 버튼 -->
-        <button @click="logout">로그아웃</button>
+    <div class="container">
+        <Swiper></Swiper>
+        <div v-if="user" class="userInfo">
+            <h1>Current User</h1>
+            <p>ID: {{ user.id }}</p>
+            <p>Encrypted Password: {{ maskedPassword }}</p>
+            <p>Name: {{ user.name }}</p>
+            <!-- 로그아웃 버튼 -->
+            <button @click="logout">로그아웃</button>
+        </div>
     </div>
 </template>
 <script>
-import commonUtil from "../common/commonUtil"
+import Swiper from '../components/Swiper'
 export default {
+    components: {
+        Swiper,
+    },
     created() {
         console.log('user :: ', this.$store.getters.user);
         if (this.$store.getters.user == null) {
@@ -58,3 +64,13 @@ export default {
 
 }
 </script>
+<style>
+.container {
+    /* display: flex; */
+}
+
+.userInfo {
+    margin-top: 400px;
+    /* margin-top: 20px; */
+}
+</style>
