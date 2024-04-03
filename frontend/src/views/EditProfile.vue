@@ -37,9 +37,9 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <BaseButton className="btn btn-danger" type="button"
                                     :clickHandler="() => $goToPage('IndexPage')">
-                                    로그아웃</BaseButton>
+                                    취소</BaseButton>
                                 <BaseButton className="btn btn-primary" type="submit" :clickHandler="() => logout()">
-                                    로그아웃</BaseButton>
+                                    수정하기</BaseButton>
                             </div>
                         </form>
                     </div>

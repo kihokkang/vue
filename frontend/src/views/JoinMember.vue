@@ -30,7 +30,7 @@
                                 <input type="text" maxlength="11" class="form-control" id="phone"
                                     v-model="userData.phone" @keypress="validateInput('phone')" required>
                             </div>
-                            <BaseButton className="btn btn-outline-light" type="submit">
+                            <BaseButton className="btn btn-primary" type="submit">
                                 가입하기</BaseButton>
                         </form>
                     </div>
