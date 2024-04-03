@@ -1,30 +1,36 @@
 <template>
-    <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card bg-light">
-            <div class="card-body">
-              <h5 class="card-title mb-4">로그인</h5>
-              <form @submit.prevent="login">
-                <div class="mb-3">
-                  <label for="id" class="form-label">아이디</label>
-                  <input type="text" class="form-control" id="id" name="id" v-model="id" required autocomplete="off">
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">비밀번호</label>
-                  <input type="password" class="form-control" id="password" name="password" v-model="password" required autocomplete="off">
-                </div>
-                <button type="submit" class="btn btn-primary">로그인</button>
-              </form>
-            </div>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h5 class="card-title mb-4">로그인</h5>
+            <form @submit.prevent="login">
+              <div class="mb-3">
+                <label for="id" class="form-label">아이디</label>
+                <input type="text" class="form-control" id="id" name="id" v-model="id" required autocomplete="off">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" v-model="password" required
+                  autocomplete="off">
+              </div>
+              <BaseButton className="btn btn-primary" type="submit">
+                로그인</BaseButton>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
+  import BaseButton from '@/components/base/BaseButton';
   export default {
+    components: {
+        BaseButton
+    },
     data() {
       return {
         id: '',

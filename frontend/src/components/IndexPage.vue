@@ -7,16 +7,19 @@
             <p>Encrypted Password: {{ maskedPassword }}</p>
             <p>Name: {{ user.name }}</p>
             <!-- 로그아웃 버튼 -->
-            <button @click="logout">로그아웃</button>
+            <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => logout()">
+                로그아웃</BaseButton>
         </div>
     </div>
 </template>
 <script>
+import BaseButton from '@/components/base/BaseButton';
 import Swiper from '@/components/Swiper';
 
 export default {
     components: {
         Swiper,
+        BaseButton
     },
     created() {
         console.log('user :: ', this.$store.getters.user);

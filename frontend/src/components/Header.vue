@@ -5,10 +5,10 @@
         <!-- 로고 또는 사이트 이름 -->
         <a class="navbar-brand" href="#">Amigo</a>
         <!-- 햄버거 아이콘 -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <BaseButton className="navbar-toggler" type="button" data-bs-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
+        </BaseButton>
         <!-- 메뉴 목록 -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -25,10 +25,8 @@
 
             <!-- 드롭다운 토글 버튼 -->
             <div class="dropdown">
-              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                마이페이지
-              </button>
+              <BaseButton className="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">마이페이지</BaseButton>
               <!-- 드롭다운 메뉴 -->
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" @click="$goToPage('EditProfile')">회원정보</a></li>
@@ -38,13 +36,14 @@
             </div>
 
             <!-- 로그아웃 버튼 -->
-            <button class="btn btn-outline-danger ms-3" type="button" @click="logout">Logout</button>
+            <BaseButton className="btn btn-outline-danger ms-3" type="button" :clickHandler="() => logout()">Logout
+            </BaseButton>
           </div>
           <div v-else>
-            <BaseButton className="btn btn-outline-light" type="button"
-              :clickHandler="() => $goToPage('LoginPage')">Login</BaseButton>
-            <BaseButton className="btn btn-outline-light" type="button"
-              :clickHandler="() => $goToPage('JoinMember')">Join</BaseButton>
+            <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => $goToPage('LoginPage')">
+              Login</BaseButton>
+            <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => $goToPage('JoinMember')">
+              Join</BaseButton>
           </div>
         </div>
       </div>
@@ -53,7 +52,7 @@
 </template>
 
 <script>
-import BaseButton from '@/components/BaseButton';
+import BaseButton from '@/components/base/BaseButton';
 
 export default {
   name: 'Header',
@@ -66,6 +65,7 @@ export default {
   methods: {
     logout() {
       // 서버에 로그아웃 요청 보내기
+      console.log('호출됐냐');
       this.$axios.post("api/auth/logout")
         .then((res) => {
           if (res.data.success) {

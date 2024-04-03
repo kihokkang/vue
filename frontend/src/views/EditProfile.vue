@@ -35,8 +35,11 @@
                                     v-model="userData.phone" @keypress="validateInput('phone')" required>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-danger" @click="$goToPage('IndexPage');">취소</button>
-                                <button type="submit" class="btn btn-primary">수정하기</button>
+                                <BaseButton className="btn btn-danger" type="button"
+                                    :clickHandler="() => $goToPage('IndexPage')">
+                                    로그아웃</BaseButton>
+                                <BaseButton className="btn btn-primary" type="submit" :clickHandler="() => logout()">
+                                    로그아웃</BaseButton>
                             </div>
                         </form>
                     </div>
@@ -47,7 +50,12 @@
 </template>
 
 <script>
+import BaseButton from '@/components/base/BaseButton';
+
 export default {
+    components: {
+        BaseButton
+    },
     data() {
         return {
             userData: {

@@ -8,8 +8,8 @@
                         <form @submit.prevent="registerUser">
                             <div class="mb-3">
                                 <label for="id" class="form-label">아이디</label>
-                                <input type="text" class="form-control" id="id" v-model="userData.id"
-                                    required autocomplete="off">
+                                <input type="text" class="form-control" id="id" v-model="userData.id" required
+                                    autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">비밀번호</label>
@@ -30,7 +30,8 @@
                                 <input type="text" maxlength="11" class="form-control" id="phone"
                                     v-model="userData.phone" @keypress="validateInput('phone')" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">가입하기</button>
+                            <BaseButton className="btn btn-outline-light" type="submit">
+                                가입하기</BaseButton>
                         </form>
                     </div>
                 </div>
@@ -40,7 +41,12 @@
 </template>
 
 <script>
+import BaseButton from '@/components/base/BaseButton';
+
 export default {
+    components: {
+        BaseButton
+    },
     data() {
         return {
             userData: {
