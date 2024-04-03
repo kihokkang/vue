@@ -31,7 +31,7 @@
               </button>
               <!-- 드롭다운 메뉴 -->
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" @click="$router.push({ name: 'EditProfile' })">회원정보</a></li>
+                <li><a class="dropdown-item" @click="$goToPage('EditProfile')">회원정보</a></li>
                 <li><a class="dropdown-item" @click="deleteUser()">탈퇴</a></li>
                 <!-- 다른 메뉴 아이템 추가 가능 -->
               </ul>
@@ -41,10 +41,10 @@
             <button class="btn btn-outline-danger ms-3" type="button" @click="logout">Logout</button>
           </div>
           <div v-else>
-            <button class="btn btn-outline-light" type="button"
-              @click="$router.push({ name: 'LoginPage' })">Login</button>
-            <button class="btn btn-outline-light" type="button"
-              @click="$router.push({ name: 'JoinMember' })">Join</button>
+            <BaseButton className="btn btn-outline-light" type="button"
+              :clickHandler="() => $goToPage('LoginPage')">Login</BaseButton>
+            <BaseButton className="btn btn-outline-light" type="button"
+              :clickHandler="() => $goToPage('JoinMember')">Join</BaseButton>
           </div>
         </div>
       </div>
@@ -53,8 +53,13 @@
 </template>
 
 <script>
+import BaseButton from '@/components/BaseButton';
+
 export default {
   name: 'Header',
+  components: {
+    BaseButton // Button.vue 컴포넌트를 등록합니다.
+  },
   computed: {
     user() { return this.$store.getters.user; }, // computed 속성이므로 user 값은 상태(store) 또는 다른 연관된 속성이 변경될 때 자동으로 업데이트됩니다.
   },
@@ -66,7 +71,7 @@ export default {
           if (res.data.success) {
             // 로그아웃 성공 시 로컬 상태 초기화하고 로그인 페이지로 이동
             this.$store.commit("setUser", null);
-            this.$router.push({ name: "LoginPage" });
+            this.$goToPage('LoginPage');
           } else {
             alert("로그아웃에 실패했습니다.");
           }
@@ -86,7 +91,7 @@ export default {
             console.log('사용자 삭제 성공:', response.data);
             alert("성공적으로 사용자가 삭제되었습니다.");
             this.$store.commit("setUser", null);
-            this.$router.push({ name: "LoginPage" });
+            this.$goToPage('LoginPage');
           })
           .catch(error => {
             console.error('사용자 삭제 실패:', error.response.data);

@@ -80,7 +80,6 @@ export default {
     flex-direction: column;
     width: 400px;
 }
-
 .swiper-container {
     height: 450px;
     /* swiper 컨테이너의 높이 설정 */

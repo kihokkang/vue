@@ -35,7 +35,7 @@
                                     v-model="userData.phone" @keypress="validateInput('phone')" required>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <button type="button" class="btn btn-danger" @click="$router.push({ name: 'IndexPage' })">취소</button>
+                                <button type="button" class="btn btn-danger" @click="$goToPage('IndexPage');">취소</button>
                                 <button type="submit" class="btn btn-primary">수정하기</button>
                             </div>
                         </form>
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import commonUtil from '../common/commonUtil';
 export default {
     data() {
         return {
@@ -67,14 +66,14 @@ export default {
         // 입력 값 유효성 검사
         validateInput(type) {
             if (type === 'password') {
-                const passYn = commonUtil.stringUtil.validatePassword(this.userData.password);
+                const passYn = this.$commonUtil.stringUtil.validatePassword(this.userData.password);
                 if (!passYn) {
                     this.userData.password = '';
                     alert('비밀번호는 최소 8자 이상이어야 하며 영문, 숫자, 특수문자를 포함해야 합니다.');
                 }
             } else if (type === 'password2') {
                 // password1과 password2 비교
-                if (!commonUtil.isEmpty(this.userData.password2)) {
+                if (!this.$commonUtil.isEmpty(this.userData.password2)) {
                     if (this.userData.password !== this.userData.password2) {
                         this.userData.password2 = '';
                         alert('비밀번호가 일치하지 않습니다.');
@@ -98,7 +97,7 @@ export default {
                 .then(response => {
                     this.$store.commit('setUser', response.data);
                     alert('사용자 정보가 성공적으로 업데이트되었습니다.');
-                    this.$router.push({ name: "IndexPage" });
+                    this.$goToPage('IndexPage');
                 })
                 .catch(error => {
                     console.error(error);

@@ -398,7 +398,17 @@ const commonUtil = {
     const bytes = CryptoJS.AES.decrypt(encData, constant.ENC_KEY);
     const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
     return decryptedData;
-  },
+  }
 };
 
-export default commonUtil;
+export default {
+  install(Vue) {
+    Vue.prototype.$commonUtil = commonUtil;
+
+    // 페이지 이동 공통함수
+    Vue.prototype.$goToPage = function (pageName) {
+      // TO-DO : 페이지 이동시 param에 대한 처리 로직 추가예정
+      this.$router.push({ name: pageName }).catch(() => { }); // .catch 없으면 path 같은곳 이동시 중복에러뜸(router-link)
+    }
+  }
+};

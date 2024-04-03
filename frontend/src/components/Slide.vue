@@ -49,7 +49,7 @@ a {
     justify-content: flex-end;
     text-align: left;
     width: 100%;
-    height: 800px;
+    height: 100%;
     background-color: rgba(255, 255, 255, 0.7);
     background-repeat: no-repeat;
     background-blend-mode: overlay;

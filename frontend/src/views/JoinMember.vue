@@ -40,8 +40,6 @@
 </template>
 
 <script>
-import commonUtil from '../common/commonUtil';
-
 export default {
     data() {
         return {
@@ -64,7 +62,7 @@ export default {
                 .then(response => {
                     console.log(response.data.message);
                     alert('회원가입을 축하드립니다!');
-                    this.$router.push({ name: "IndexPage" });
+                    this.$goToPage('IndexPage');
                 })
                 .catch(error => {
                     alert(error.response.data.message);
@@ -73,7 +71,7 @@ export default {
         },
         validateInput(type) {
             if (type == 'password') {
-                const passYn = commonUtil.stringUtil.validatePassword(this.userData.password);
+                const passYn = this.$commonUtil.stringUtil.validatePassword(this.userData.password);
                 if (!passYn) alert('비밀번호는 최소 8자 이상이어야 하며 영문, 숫자, 특수문자를 포함해야 합니다.');
             } else if (type == 'phone') {
                 const keyCode = event.keyCode;

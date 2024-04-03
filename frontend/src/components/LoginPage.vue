@@ -24,8 +24,6 @@
   </template>
   
   <script>
-  import commonUtil from "../common/commonUtil"
-  
   export default {
     data() {
       return {
@@ -39,7 +37,7 @@
         const id = this.id;
         const password = this.password;
   
-        if (commonUtil.isEmpty(id) || commonUtil.isEmpty(password)) {
+        if (this.$commonUtil.isEmpty(id) || this.$commonUtil.isEmpty(password)) {
           alert('ID나 Password를 입력해주세요');
           return;
         }
@@ -47,9 +45,9 @@
         this.$axios.post("api/auth/login", { id, password }, { "Content-Type": "application-json" })
           .then((res) => {
             if (res.data.user) {
-              commonUtil.showToast(res.data.user.name + '님! 환영합니다!');
+              this.$commonUtil.showToast(res.data.user.name + '님! 환영합니다!');
               this.$store.commit("setUser", res.data.user);
-              this.$router.push({ name: "IndexPage" });
+              this.$goToPage('IndexPage');
             } else if (res.data.message) {
               alert(res.data.message);
             }
