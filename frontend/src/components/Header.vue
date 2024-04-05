@@ -3,27 +3,36 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
         <!-- 로고 또는 사이트 이름 -->
-        <a class="navbar-brand" href="#">Amigo</a>
+        <a class="navbar-brand"><router-link to="/" class="nav-link">Amigo</router-link></a>
         <!-- 햄버거 아이콘 -->
-        <BaseButton className="navbar-toggler" type="button" data-bs-target="#navbarNav" aria-controls="navbarNav"
-          aria-expanded="false" aria-label="Toggle navigation">
+        <BaseButton className="navbar-toggler" type="button" :clickHandler="() => toggleNavbar()">
           <span class="navbar-toggler-icon"></span>
         </BaseButton>
         <!-- 메뉴 목록 -->
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <router-link to="/" class="nav-link">Home</router-link>
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="#" role="button" id="moduleDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">Module</a>
+              <!-- 서브메뉴 -->
+              <ul class="dropdown-menu" aria-labelledby="moduleDropdown">
+                <li><router-link to="/module1" class="dropdown-item">Chart</router-link></li>
+                <li><router-link to="/module2" class="dropdown-item">Role</router-link></li>
+                <!-- 다른 모듈 추가 -->
+              </ul>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">About</router-link>
+              <router-link to="/qna" class="nav-link">Q&A</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">Career</router-link>
             </li>
             <!-- 기타 메뉴 항목 추가 -->
           </ul>
+          <!-- 사용자 관련 메뉴 -->
           <div v-if="user" class="d-flex align-items-center">
             <span class="text-light me-3">{{ user.name + '님' }}</span>
-
-            <!-- 드롭다운 토글 버튼 -->
+            <!-- 마이페이지 드롭다운 -->
             <div class="dropdown">
               <BaseButton className="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-expanded="false">마이페이지</BaseButton>
@@ -31,14 +40,14 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" @click="$goToPage('EditProfile')">회원정보</a></li>
                 <li><a class="dropdown-item" @click="deleteUser()">탈퇴</a></li>
-                <!-- 다른 메뉴 아이템 추가 가능 -->
+                <!-- 다른 메뉴 아이템 추가 -->
               </ul>
             </div>
-
             <!-- 로그아웃 버튼 -->
             <BaseButton className="btn btn-outline-danger ms-3" type="button" :clickHandler="() => logout()">Logout
             </BaseButton>
           </div>
+          <!-- 로그인 및 회원가입 버튼 -->
           <div v-else>
             <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => $goToPage('LoginPage')">
               Login</BaseButton>
@@ -59,10 +68,22 @@ export default {
   components: {
     BaseButton // Button.vue 컴포넌트를 등록합니다.
   },
+  data() {
+    return {
+    };
+  },
   computed: {
     user() { return this.$store.getters.user; }, // computed 속성이므로 user 값은 상태(store) 또는 다른 연관된 속성이 변경될 때 자동으로 업데이트됩니다.
   },
   methods: {
+    toggleNavbar() {
+      const navbar = document.getElementById('navbarNav');
+      if (navbar) {
+        const expanded = navbar.getAttribute('aria-expanded') === 'true';
+        navbar.setAttribute('aria-expanded', !expanded); // aria-expanded 토글
+        navbar.classList.toggle('show'); // 네비게이션 바 토글
+      }
+    },
     logout() {
       // 서버에 로그아웃 요청 보내기
       console.log('호출됐냐');
@@ -121,5 +142,17 @@ header {
   /* 여백 추가 */
   z-index: 2;
   /* 헤더를 컨텐츠 위로 올림 */
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  display: none;
+}
+
+.dropdown-menu:hover {
+  display: block;
 }
 </style>
