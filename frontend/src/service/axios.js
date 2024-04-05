@@ -14,7 +14,6 @@ Sentry.init({
 axios.interceptors.request.use(function (config) {
     // 요청을 보내기 전에 수행할 로직을 작성합니다.
     console.log('요청 보내기 전:', config);
-
     // ################### TO-DO ################### //
 
     // 1. 요청 헤더 설정: 인증 토큰이나 사용자 정보를 포함하는 요청 헤더를 설정합니다.
@@ -43,7 +42,6 @@ axios.interceptors.request.use(function (config) {
 }, function (error) {
     // 요청 오류 시 수행할 로직을 작성합니다.
     console.error('요청 오류:', error);
-
     // 오류가 났을때 응답 데이터를 Sentry에 전달합니다.
     Sentry.addBreadcrumb({
         category: 'axios-response',
@@ -66,7 +64,6 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
     // 응답을 받은 후에 수행할 로직을 작성합니다.
     console.log('응답을 받은 후:', response);
-
     // ################### TO-DO ################### //
 
     // 1. 응답 데이터 가공: 받은 응답 데이터를 필요에 따라 가공하여 사용합니다.
@@ -86,7 +83,7 @@ axios.interceptors.response.use(function (response) {
 }, function (error) {
     // 응답 오류 시 수행할 로직을 작성합니다.
     console.error('응답 오류:', error);
-
+    
     // 오류가 났을때 응답 데이터를 Sentry에 전달합니다.
     Sentry.addBreadcrumb({
         category: 'axios-response',

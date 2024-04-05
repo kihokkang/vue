@@ -21,6 +21,7 @@
     "swiper-vue2": "^1.0.10",
     "toastify-js": "^1.12.0",
     "vue": "^2.5.2",
+    "vue-loading-overlay": "3.0",
     "vue-router": "^3.0.1",
     "vuex": "^2.0.0"
   },

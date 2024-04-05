@@ -4,7 +4,7 @@
     <Header />
 
     <!-- 페이지 컨텐츠 -->
-    <div class="content">
+    <div class="content" ref="container">
       <slot></slot>
     </div>
 

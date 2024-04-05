@@ -42,14 +42,14 @@
         // throw new Error('Sentry Error'); // Sentry 에러 테스트용
         const id = this.id;
         const password = this.password;
-  
+        this.$showLoading();
         if (this.$commonUtil.isEmpty(id) || this.$commonUtil.isEmpty(password)) {
           alert('ID나 Password를 입력해주세요');
           return;
         }
-  
         this.$axios.post("api/auth/login", { id, password }, { "Content-Type": "application-json" })
           .then((res) => {
+            this.$hideLoading();
             if (res.data.user) {
               this.$commonUtil.showToast(res.data.user.name + '님! 환영합니다!');
               this.$store.commit("setUser", res.data.user);

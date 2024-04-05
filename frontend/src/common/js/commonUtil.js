@@ -5,6 +5,7 @@ import CryptoJS from 'crypto-js';
 import constant from './define';
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
+var loader = null;
 
 const commonUtil = {
   dateUtil: {
@@ -410,5 +411,23 @@ export default {
       // TO-DO : 페이지 이동시 param에 대한 처리 로직 추가예정
       this.$router.push({ name: pageName }).catch(() => { }); // .catch 없으면 path 같은곳 이동시 중복에러뜸(router-link)
     }
+
+    var loader = null;
+    Vue.prototype.$showLoading = function () {
+      console.log('호출됨');
+      loader = this.$loading.show({
+        container: this.$refs.container,
+        width: 100,
+        height: 100,
+        color: "blue",
+        canCancel: false,
+      });
+    };
+
+    Vue.prototype.$hideLoading = function () {
+      if (loader) {
+        loader.hide();
+      }
+    };
   }
 };

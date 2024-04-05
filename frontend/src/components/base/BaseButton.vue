@@ -21,10 +21,25 @@ export default {
     clickHandler: {
       type: Function,
       default: null // 부모로부터 받은 함수를 실행하기 위한 prop, 기본값은 null
+    },
+    debounceEnabled: {
+      type: Boolean,
+      default: false // 기본적으로 debounce 비활성화 (API를 호출하는 Button은 사용할것)
     }
   },
   methods: {
-    handleButtonClick: _.debounce(function(event) {
+    handleButtonClick(event) {
+      if (this.debounceEnabled) {
+        // debounce 활성화 상태일 때만 debounce 함수 적용
+        this.debounceClickHandler(event);
+      } else {
+        // debounce 비활성화 상태일 때는 바로 clickHandler 실행
+        if (typeof this.clickHandler === 'function') {
+          this.clickHandler(event);
+        }
+      }
+    },
+    debounceClickHandler: _.debounce(function(event) {
       if (typeof this.clickHandler === 'function') {
         this.clickHandler(event);
       }
