@@ -412,6 +412,11 @@ export default {
       this.$router.push({ name: pageName }).catch(() => { }); // .catch 없으면 path 같은곳 이동시 중복에러뜸(router-link)
     }
 
+    // 뒤로가기
+    Vue.prototype.$goBack = function () {
+      this.$router.go(-1);
+    }
+
     var loader = null;
     Vue.prototype.$showLoading = function () {
       console.log('호출됨');
