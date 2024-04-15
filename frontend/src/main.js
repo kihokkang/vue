@@ -35,6 +35,10 @@ new Vue({
   el: '#app',
   router,
   store, // vue 인스턴스에 생성한 store 추가
+  created() {
+    // 애플리케이션 시작 시 사용자 정보 초기화
+    this.$store.dispatch('initializeUser');
+  },
   components: { App },
   template: '<App/>'
 })

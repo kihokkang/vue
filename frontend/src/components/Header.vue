@@ -91,7 +91,7 @@ export default {
         .then((res) => {
           if (res.data.success) {
             // 로그아웃 성공 시 로컬 상태 초기화하고 로그인 페이지로 이동
-            this.$store.commit("setUser", null);
+            this.$store.commit('clearUser');
             this.$goToPage('Login');
           } else {
             alert("로그아웃에 실패했습니다.");
