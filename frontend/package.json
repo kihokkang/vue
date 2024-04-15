@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/runtime": "^7.24.1",
     "@sentry/vue": "^7.107.0",
+    "@toast-ui/vue-editor": "^3.2.3",
     "axios": "^1.4.0",
     "crypto-js": "^4.2.0",
     "is-empty": "^1.2.0",
