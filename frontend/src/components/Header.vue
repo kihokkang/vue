@@ -22,7 +22,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <router-link to="/qna" class="nav-link">Q&A</router-link>
+              <a class="nav-link" @click="$goToPage('Board')">Q&A</a>
             </li>
             <li class="nav-item">
               <router-link to="/" class="nav-link">Career</router-link>
@@ -49,7 +49,7 @@
           </div>
           <!-- 로그인 및 회원가입 버튼 -->
           <div v-else>
-            <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => $goToPage('LoginPage')">
+            <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => $goToPage('Login')">
               Login</BaseButton>
             <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => $goToPage('JoinMember')">
               Join</BaseButton>
@@ -92,7 +92,7 @@ export default {
           if (res.data.success) {
             // 로그아웃 성공 시 로컬 상태 초기화하고 로그인 페이지로 이동
             this.$store.commit("setUser", null);
-            this.$goToPage('LoginPage');
+            this.$goToPage('Login');
           } else {
             alert("로그아웃에 실패했습니다.");
           }
@@ -112,7 +112,7 @@ export default {
             console.log('사용자 삭제 성공:', response.data);
             alert("성공적으로 사용자가 삭제되었습니다.");
             this.$store.commit("setUser", null);
-            this.$goToPage('LoginPage');
+            this.$goToPage('Login');
           })
           .catch(error => {
             console.error('사용자 삭제 실패:', error.response.data);
