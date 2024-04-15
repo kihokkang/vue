@@ -36,7 +36,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <BaseButton className="btn btn-danger" type="button"
-                                    :clickHandler="() => $goToPage('IndexPage')">
+                                    :clickHandler="() => $goToPage('Index')">
                                     취소</BaseButton>
                                 <BaseButton className="btn btn-primary" type="submit" :clickHandler="() => logout()">
                                     수정하기</BaseButton>
@@ -105,7 +105,7 @@ export default {
                 .then(response => {
                     this.$store.commit('setUser', response.data);
                     alert('사용자 정보가 성공적으로 업데이트되었습니다.');
-                    this.$goToPage('IndexPage');
+                    this.$goToPage('Index');
                 })
                 .catch(error => {
                     console.error(error);

@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-5">
+  <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card bg-light">
@@ -53,7 +53,7 @@
             if (res.data.user) {
               this.$commonUtil.showToast(res.data.user.name + '님! 환영합니다!');
               this.$store.commit("setUser", res.data.user);
-              this.$goToPage('IndexPage');
+              this.$goToPage('Index');
             } else if (res.data.message) {
               alert(res.data.message);
             }

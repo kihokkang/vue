@@ -29,7 +29,7 @@ export default {
 <style scoped>
 .default-layout {
   position: relative; /* 컨테이너 요소의 position을 relative로 설정 */
-  min-height: 100vh; /* 화면 전체 높이를 커버하기 위해 최소 높이를 100vh로 설정 */
+  /*min-height: 100vh;  화면 전체 높이를 커버하기 위해 최소 높이를 100vh로 설정 */
 }
 .content {
   margin-top: 60px; /* 헤더의 높이만큼 컨텐츠 아래로 밀어줌 */

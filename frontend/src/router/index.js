@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import IndexPage from '@/components/IndexPage'
-import LoginPage from '@/components/LoginPage'
-import JoinMember from '@/views/JoinMember'
+import Index from '@/views/Index'
+import Login from '@/views/login/Login'
+import JoinMember from '@/views/login/JoinMember'
 import EditProfile from '@/views/EditProfile'
+import Board from '@/views/board/Board'
+import BoardList from '@/views/board/BoardList'
+import BoardWrite from '@/views/board/BoardWrite'
 
 Vue.use(Router)
 
@@ -11,13 +14,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'IndexPage',
-      component: IndexPage
+      name: 'Index',
+      component: Index
     },
     {
       path: '/Login',
-      name: 'LoginPage',
-      component: LoginPage
+      name: 'Login',
+      component: Login
     },
     {
       path: '/Register',
@@ -28,6 +31,21 @@ export default new Router({
       path: '/EditProfile',
       name: 'EditProfile',
       component: EditProfile
+    },
+    {
+      path: '/Board',
+      name: 'Board',
+      component: Board
+    },
+    {
+      path: '/BoardList',
+      name: 'BoardList',
+      component: BoardList
+    },
+    {
+      path: '/BoardWrite',
+      name: 'BoardWrite',
+      component: BoardWrite
     }
   ]
 })

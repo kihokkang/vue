@@ -68,7 +68,7 @@ export default {
                 .then(response => {
                     console.log(response.data.message);
                     alert('회원가입을 축하드립니다!');
-                    this.$goToPage('IndexPage');
+                    this.$goToPage('Index');
                 })
                 .catch(error => {
                     alert(error.response.data.message);
