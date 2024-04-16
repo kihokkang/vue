@@ -65,6 +65,7 @@ export default {
             for (let i = 1; i <= 20; i++) {
                 this.notices.push({
                     number: i,
+                    id: String(i),
                     title: `게시물 제목 ${i}`,
                     link: `#notice-${i}`,
                     user: `User${i}`,

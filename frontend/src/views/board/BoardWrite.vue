@@ -13,7 +13,7 @@
         <Editor :initialEditType="'markdown'" :initialValue="content" height="500px" :options="editorOptions" @change="handleChange"/>
       </div>
       <div class="d-flex justify-content-between mb-3">
-        <button type="button" class="btn btn-danger" @click="$goBack()">취소</button>
+        <button type="button" class="btn btn-danger" @click="$goToPage('Board')">취소</button>
         <button type="submit" class="btn btn-primary">저장</button>
       </div>
     </form>
@@ -46,6 +46,8 @@ export default {
     submitForm() {
       // 글쓰기 버튼 클릭 시 호출되는 메소드
       console.log('내용:', this.content);
+      this.$commonUtil.showToast('게시글이 등록되었습니다.');
+      this.$goToPage('Board');
       // 글쓰기 로직을 이곳에 추가하세요
     }
   }

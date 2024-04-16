@@ -11,14 +11,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(notice, index) in notices" :key="index">
+                <tr v-for="(notice, index) in notices" :key="index" @click="goToDetailPage(notice.id)">
                     <td class="text-center">{{ notice.number }}</td>
                     <td>
-                        <a :href="notice.link"><i class="fas fa-external-link-alt"></i> {{ notice.title }}</a>
+                        <a href="#" @click.prevent="goToDetailPage(notice.id)">
+                            <i class="fas fa-external-link-alt"></i> {{ notice.title }}
+                        </a>
                     </td>
                     <td class="text-center">
                         <img :src="notice.thumbnail" class="rounded-circle" style="width: 30px; height: 30px;"
-                            alt="User Thumbnail">{{ notice.user }} 
+                            alt="User Thumbnail">{{ notice.user }}
                     </td>
                     <td class="text-center"><i class="far fa-calendar-alt"></i> {{ notice.date }}</td>
                     <td class="text-center"><i class="fas fa-eye"></i> {{ notice.count }}</td>
@@ -42,7 +44,13 @@ export default {
         notices: Array,
         currentPage: Number,
         totalPages: Number
+    },
+    methods: {
+    goToDetailPage(postId) {
+        // 게시글의 ID를 이용하여 동적 라우팅을 수행합니다.
+        this.$router.push({ name: 'BoardDetail', params: { postId: postId } });
     }
+}
 };
 </script>
 

@@ -7,6 +7,7 @@ import EditProfile from '@/views/EditProfile'
 import Board from '@/views/board/Board'
 import BoardList from '@/views/board/BoardList'
 import BoardWrite from '@/views/board/BoardWrite'
+import BoardDetail from '@/views/board/BoardDetail'
 
 Vue.use(Router)
 
@@ -46,6 +47,12 @@ export default new Router({
       path: '/BoardWrite',
       name: 'BoardWrite',
       component: BoardWrite
+    },
+    {
+      path: '/BoardDetail',
+      name: 'BoardDetail',
+      component: BoardDetail,
+      props: true,
     }
   ]
 })
