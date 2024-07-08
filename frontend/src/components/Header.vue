@@ -22,7 +22,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @click="$goToPage('Board')">Q&A</a>
+              <a href="#" class="nav-link" @click="$goToPage('Board')">Q&A</a>
             </li>
             <li class="nav-item">
               <router-link to="/" class="nav-link">Career</router-link>
@@ -38,8 +38,8 @@
                 data-bs-toggle="dropdown" aria-expanded="false">마이페이지</BaseButton>
               <!-- 드롭다운 메뉴 -->
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" @click="$goToPage('EditProfile')">회원정보</a></li>
-                <li><a class="dropdown-item" @click="deleteUser()">탈퇴</a></li>
+                <li><a href="#" class="dropdown-item" @click="$goToPage('EditProfile')">회원정보</a></li>
+                <li><a href="#" class="dropdown-item" @click="deleteUser()">탈퇴</a></li>
                 <!-- 다른 메뉴 아이템 추가 -->
               </ul>
             </div>
