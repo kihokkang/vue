@@ -28,22 +28,42 @@ exports.createUser = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-      const userId = req.params.id;
-      const user = await User.findOne({ id: userId });
-      if (!user) {
-          return res.status(404).json({ message: '해당 아이디의 사용자를 찾을 수 없습니다.' });
-      }
-      res.status(200).json(user);
+    const userId = req.params.id;
+    const user = await User.findOne({ id: userId });
+    if (!user) {
+      return res.status(404).json({ message: '해당 아이디의 사용자를 찾을 수 없습니다.' });
+    }
+
+    // 프로필 이미지 Blob 데이터를 Base64로 변환
+    let profileImageBase64 = '';
+    if (user.profileImageBlob) {
+      profileImageBase64 = user.profileImageBlob.toString('base64');
+    }
+
+    const userData = {
+      id: user.id,
+      name: user.name,
+      age: user.age,
+      phone: user.phone,
+      profileImageBase64: `data:image/jpeg;base64,${profileImageBase64}`
+    };
+
+    res.status(200).json(userData);
   } catch (error) {
-      console.error('Error fetching user:', error);
-      res.status(500).json({ message: '서버 오류' });
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: '서버 오류' });
   }
 };
 
 exports.updateUserById = async (req, res) => {
   try {
+
+    console.log('업데이트 ::: ', req.body);
+
+    debugger;
     const userId = req.params.id;
     const { password, name, age, phone } = req.body;
+    const profileImageBlob = req.file ? req.file.buffer : null; // 업로드된 이미지가 있으면 Buffer로 변환
 
     // 비밀번호 암호화
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -54,6 +74,7 @@ exports.updateUserById = async (req, res) => {
     if (name) userDataToUpdate.name = name;
     if (age) userDataToUpdate.age = age;
     if (phone) userDataToUpdate.phone = phone;
+    if (profileImageBlob) userDataToUpdate.profileImageBlob = profileImageBlob;
 
     // 사용자 정보 업데이트
     const updatedUser = await User.findOneAndUpdate(
@@ -65,6 +86,13 @@ exports.updateUserById = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: '해당 아이디의 사용자를 찾을 수 없습니다.' });
     }
+
+     // 프로필 이미지 Blob 데이터를 Base64로 변환
+     if (updatedUser.profileImageBlob) {
+        updatedUser.profileImageBase64 = `data:image/jpeg;base64,${updatedUser.profileImageBlob.toString('base64')}`;
+     }
+
+     delete updatedUser.profileImageBlob;
 
     res.status(200).json(updatedUser);
   } catch (error) {
