@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/UserController');
 
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() }); // 메모리 스토리지 사용
+
 /**
  * @swagger
  *   /user/create:
@@ -140,7 +143,7 @@ router.put('/:id', UserController.updateUserById);
  *       '500':
  *         description: 서버 오류
  */
-router.patch('/:id', UserController.updateUserById);
+router.patch('/:id', upload.single('profileImageBlob'), UserController.updateUserById);
 
 /**
  * @swagger

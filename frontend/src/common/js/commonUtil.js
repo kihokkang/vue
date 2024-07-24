@@ -409,6 +409,13 @@ export default {
     // 페이지 이동 공통함수
     Vue.prototype.$goToPage = function (pageName) {
       // TO-DO : 페이지 이동시 param에 대한 처리 로직 추가예정
+        // 페이지 이동 시 헤더 열려있으면 닫기
+      const navbar = document.getElementById('navbarNav');
+      const expanded = navbar.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        navbar.setAttribute('aria-expanded', !expanded); // aria-expanded 토글
+        navbar.classList.toggle('show'); // 네비게이션 바 토글
+      }
       this.$router.push({ name: pageName }).catch(() => { }); // .catch 없으면 path 같은곳 이동시 중복에러뜸(router-link)
     }
 

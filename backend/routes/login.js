@@ -98,20 +98,37 @@ router.post('/login', function(req, res, next) {
     if(req.isAuthenticated()) {
         return res.redirect('/');
     }
+
     passport.authenticate('local', (authError, user, info) => {
         if(authError) {
             console.error(authError);
             return next(authError);
         }
         if(!user) {
-            return res.json(info);
+            return res.status(401).json(info); // 인증 실패 시
         }
-        return req.login(user, (loginError) => {
+
+        req.login(user, (loginError) => {
             if(loginError) {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.json({ user });
+
+            // 프로필 이미지 Blob 데이터를 Base64로 변환
+            let profileImageBase64 = '';
+            if (user.profileImageBlob) {
+                profileImageBase64 = user.profileImageBlob.toString('base64');
+            }
+
+            const userData = {
+                id: user.id,
+                name: user.name,
+                age: user.age,
+                phone: user.phone,
+                profileImageBase64: `data:image/jpeg;base64,${profileImageBase64}`
+            };
+
+            return res.status(200).json({ userData });
         });
     })(req, res, next); // 미들웨어 호출
 });

@@ -4,7 +4,7 @@
         <div v-if="user" class="userInfo">
             <h1>Current User</h1>
             <p>ID: {{ user.id }}</p>
-            <p>Encrypted Password: {{ maskedPassword }}</p>
+            <!-- <p>Encrypted Password: {{ maskedPassword }}</p> -->
             <p>Name: {{ user.name }}</p>
             <!-- 로그아웃 버튼 -->
             <BaseButton className="btn btn-outline-light" type="button" :clickHandler="() => logout()">

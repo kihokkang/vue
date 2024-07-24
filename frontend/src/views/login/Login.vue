@@ -50,9 +50,9 @@
         this.$axios.post("api/auth/login", { id, password }, { "Content-Type": "application-json" })
           .then((res) => {
             this.$hideLoading();
-            if (res.data.user) {
-              this.$commonUtil.showToast(res.data.user.name + '님! 환영합니다!');
-              this.$store.commit("setUser", res.data.user);
+            if (res.data.userData) {
+              this.$commonUtil.showToast(res.data.userData.name + '님! 환영합니다!');
+              this.$store.commit("setUser", res.data.userData);
               this.$goToPage('Index');
             } else if (res.data.message) {
               alert(res.data.message);
