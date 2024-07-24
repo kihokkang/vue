@@ -6,7 +6,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var passport = require('passport');
 const database = require('./db.js');
-const { swaggerUi, specs } = require("./swagger/swagger")
+const { swaggerUi, specs } = require("./swagger/swagger");
 
 // require('./passport') 구문은 현재 파일에서 상대 경로 ./passport에 있는 모듈을 가져오는 것을 의미합니다. 
 // config 함수는 passport 객체를 인자로 받아, 필요한 설정을 수행합니다.
