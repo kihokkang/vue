@@ -11,19 +11,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(notice, index) in notices" :key="index" @click="goToDetailPage(notice.id)">
-                    <td class="text-center">{{ notice.number }}</td>
+                <tr v-for="(notice, index) in notices" :key="index">
+                    <td class="text-center">{{ index }}</td>
                     <td>
-                        <a href="#" @click.prevent="goToDetailPage(notice.id)">
+                        <a href="#" @click.prevent="goToDetailPage(notice.boardNumber)">
                             <i class="fas fa-external-link-alt"></i> {{ notice.title }}
                         </a>
                     </td>
                     <td class="text-center">
                         <img :src="notice.thumbnail" class="rounded-circle" style="width: 30px; height: 30px;"
-                            alt="User Thumbnail">{{ notice.user }}
+                            alt="User Thumbnail">{{ notice.userId }}
                     </td>
-                    <td class="text-center"><i class="far fa-calendar-alt"></i> {{ notice.date }}</td>
-                    <td class="text-center"><i class="fas fa-eye"></i> {{ notice.count }}</td>
+                    <td class="text-center"><i class="far fa-calendar-alt"></i> {{ notice.updatedAt }}</td>
+                    <td class="text-center"><i class="fas fa-eye"></i> {{ notice.views }}</td>
                 </tr>
             </tbody>
         </table>
@@ -45,12 +45,14 @@ export default {
         currentPage: Number,
         totalPages: Number
     },
+    computed:{
+    },
     methods: {
-    goToDetailPage(postId) {
-        // 게시글의 ID를 이용하여 동적 라우팅을 수행합니다.
-        this.$router.push({ name: 'BoardDetail', params: { postId: postId } });
+        goToDetailPage(boardNumber) {
+            // 게시글의 ID를 이용하여 동적 라우팅을 수행합니다.
+            this.$router.push({ name: 'BoardDetail', params: { boardNumber: boardNumber } });
+        }
     }
-}
 };
 </script>
 

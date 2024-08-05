@@ -79,22 +79,33 @@ export default {
             this.currentPage = pageNumber;
         },
         generateNotices() {
-            // 테스트 데이터
-            for (let i = 1; i <= 20; i++) {
-                this.notices.push({
-                    number: i,
-                    id: String(i),
-                    title: `게시물 제목 ${i}`,
-                    link: `#notice-${i}`,
-                    user: `User${i}`,
-                    date: '2024-04-12',
-                    count: Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
-                    thumbnail: 'https://png.pngtree.com/png-vector/20200222/ourmid/pngtree-kawaii-cute-orange-illustration-character-png-image_2151427.jpg'
+            this.$axios.get('/api/board/getBoardList')
+                .then(response => {
+                    console.log(response);
+                    this.notices = response.data;
+                })
+                .catch(error => {
+                    alert(error.response.data.message);
+                    console.error('Error getting list:', error); // 오류 처리
                 });
-            }
+
+
+            // 테스트 데이터
+            // for (let i = 1; i <= 20; i++) {
+            //     this.notices.push({
+            //         number: i,
+            //         id: String(i),
+            //         title: `게시물 제목 ${i}`,
+            //         link: `#notice-${i}`,
+            //         user: `User${i}`,
+            //         date: '2024-04-12',
+            //         count: Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
+            //         thumbnail: 'https://png.pngtree.com/png-vector/20200222/ourmid/pngtree-kawaii-cute-orange-illustration-character-png-image_2151427.jpg'
+            //     });
+            // }
         },
     },
-    created() {
+    mounted() {
         this.generateNotices();
     },
 };

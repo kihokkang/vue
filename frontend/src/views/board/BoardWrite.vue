@@ -10,7 +10,7 @@
         <input v-model="title" type="text" class="form-control" id="title" placeholder="제목을 입력하세요" required>
       </div>
       <div class="mb-3">
-        <Editor :initialEditType="'markdown'" :initialValue="content" height="500px" :options="editorOptions" @change="handleChange"/>
+        <Editor ref="toastEditor" :initialEditType="'markdown'" :initialValue="content" height="500px" :options="editorOptions" @change="handleChange"/>
       </div>
       <div class="d-flex justify-content-between mb-3">
         <button type="button" class="btn btn-danger" @click="$goToPage('Board')">취소</button>
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       title: '',
-      content: '', // TOAST UI Editor의 초기 내용을 저장할 데이터
+      content: null, // TOAST UI Editor의 초기 내용을 저장할 데이터
       editorOptions: {
         // TO-DO
         // hideModeSwitch: false
@@ -39,16 +39,30 @@ export default {
     };
   },
   methods: {
-    handleChange(content) {
-      // 에디터 내용이 변경될 때 호출되는 메소드
-      this.content = content;
-    },
-    submitForm() {
-      // 글쓰기 버튼 클릭 시 호출되는 메소드
+    // 에디터 내용이 변경될 때 호출되는 메소드
+    handleChange() {
+      this.content = this.$refs.toastEditor.invoke('getMarkdown');
       console.log('내용:', this.content);
-      this.$commonUtil.showToast('게시글이 등록되었습니다.');
-      this.$goToPage('Board');
-      // 글쓰기 로직을 이곳에 추가하세요
+    },
+    
+    submitForm() {
+      var data = {
+        title : this.title,
+        content : this.content,
+        userId : this.$store.getters.user.id,
+        category : 1
+      }
+      console.log('내용:', this.$refs.toastEditor.invoke('getMarkdown'));
+      this.$axios.post('/api/board/writeBoard', data)
+        .then(response => {
+          console.log(response);
+          this.$commonUtil.showToast('게시글이 등록되었습니다.');
+          this.$goToPage('Board');
+        })
+        .catch(error => {
+          alert(error.response.data.message);
+          console.error('Error getting list:', error); // 오류 처리
+        });
     }
   }
 }

@@ -2,17 +2,21 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 /**
- * Vuex 유저 정보를 저장할 저장소를 생성
+ * Vuex : 무수히 많은 컴포넌트의 데이터를 관리하기 위한 상태 관리 패턴이자 라이브러리
+ * Vuex 유저 정보를 저장할 저장소를 생성 (Flux 패턴)
  */
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    // Vue 관점에서는 state - data
     state: {
         user: null
     },
-getters: {
+    // Getters - computed
+    getters: {
         user: (state) => { return state.user; }
     },
+    // mutations - methods
     mutations: {
         setUser(state, user) {
             state.user = user;
@@ -25,6 +29,7 @@ getters: {
             localStorage.removeItem('user');
         }
     },
+    // actions - 비동기 methods
     actions: {
         initializeUser({ commit }) {
             // 로컬 스토리지에서 사용자 정보 불러오기

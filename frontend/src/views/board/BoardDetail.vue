@@ -90,7 +90,7 @@ export default {
         Editor
     },
     props: {
-        postId: {
+        boardNumber: {
             type: String,
             required: true
         }
@@ -120,22 +120,18 @@ export default {
         // 게시글 데이터를 불러오는 메소드
         fetchPostData() {
             // 게시글의 ID를 라우터 파라미터에서 가져옵니다.
-            const postId = this.$route.params.id;
-            console.log('postId :: ', this.postId)
-
-            // 게시글 데이터를 불러오는 API 호출 (예: axios 또는 fetch 사용)
-            // 예시: axios.get(`/api/posts/${postId}`)
-            //     .then(response => {
-            //        this.post = response.data;
-            //     })
-            //     .catch(error => {
-            //        console.error('Error fetching post data:', error);
-            //     });
-
-            // 위의 주석처럼 실제 API 호출을 사용하여 데이터를 가져와야 합니다.
-            // 여기서는 임시로 하드코딩된 예시 데이터를 사용합니다.
+            const boardNumber = this.$route.params.boardNumber;
+            console.log('boardNumber :: ', boardNumber)
+            this.$axios.get(`/api/board/${boardNumber}`)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    alert(error.response.data.message);
+                    console.error('Error getting list:', error);
+                });
             this.post = {
-                id: postId,
+                id: boardNumber,
                 type: '일반',
                 title: '수영은 재밋다',
                 userName: '김소영',
