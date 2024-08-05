@@ -59,8 +59,6 @@ exports.updateUserById = async (req, res) => {
   try {
 
     console.log('업데이트 ::: ', req.body);
-
-    debugger;
     const userId = req.params.id;
     const { password, name, age, phone } = req.body;
     const profileImageBlob = req.file ? req.file.buffer : null; // 업로드된 이미지가 있으면 Buffer로 변환
