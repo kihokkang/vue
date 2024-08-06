@@ -1,9 +1,19 @@
 const Board = require('../models/Board');
 const User = require('../models/User');
+const cache = require('memory-cache');
 
 // 게시판 리스트 가져오기
 exports.getBoardList = async (req, res) => {
   try {
+
+    const cacheKey = 'boardList';
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+      console.log('Returning cached data');
+      return res.status(200).json(cachedData);
+    }
+
     const boards = await Board.find().sort({ boardNumber: -1 });
     // 아래 로직은 추후 수정이 필요함(자원소모가 큼)
     const formattedBoards = await Promise.all(boards.map(async board => {
@@ -22,6 +32,8 @@ exports.getBoardList = async (req, res) => {
         thumbnail: user ? `data:image/jpeg;base64,${profileImageBase64}` : null // User의 profileImageBase64 추가
       };
     }));
+    cache.put(cacheKey, formattedBoards, 100 * 1000); // 데이터 캐시에 100초 동안 저장
+    console.log('Returning new data');
     res.status(200).json(formattedBoards);
   } catch (error) {
     console.error('Error fetching board list:', error);
