@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <tr v-for="(notice, index) in notices" :key="index">
-                    <td class="text-center">{{ index }}</td>
+                    <td class="text-center">{{ notice.boardNumber }}</td>
                     <td>
                         <a href="#" @click.prevent="goToDetailPage(notice.boardNumber)">
                             <i class="fas fa-external-link-alt"></i> {{ notice.title }}

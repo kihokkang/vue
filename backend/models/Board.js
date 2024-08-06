@@ -5,7 +5,8 @@ const boardSchema = new mongoose.Schema({
     content: { type: String, required: true },
     userId: { type: String, required: true },
     category: { type: String, required: true },
-    views: { type: Number, default: 0 },
+    thumbnail : { type: String },
+    views: { type: Number, default: 0 }
 }, {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
 });

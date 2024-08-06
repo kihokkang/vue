@@ -1,21 +1,32 @@
 const Board = require('../models/Board');
+const User = require('../models/User');
 
 // 게시판 리스트 가져오기
 exports.getBoardList = async (req, res) => {
-    try {
-      const boards = await Board.find();
+  try {
+    const boards = await Board.find().sort({ boardNumber: -1 });
+    // 아래 로직은 추후 수정이 필요함(자원소모가 큼)
+    const formattedBoards = await Promise.all(boards.map(async board => {
+      const user = await User.findOne({ id: board.userId }).select('profileImageBlob id');
 
-      const formattedBoards = boards.map(board => ({
+      // 프로필 이미지 Blob 데이터를 Base64로 변환
+      let profileImageBase64 = '';
+      if (user.profileImageBlob) {
+        profileImageBase64 = user.profileImageBlob.toString('base64');
+      }
+
+      return {
         ...board._doc, // 기존 필드 유지
         createdAt: formatDate(board.createdAt), // 날짜 형식 변환
         updatedAt: formatDate(board.updatedAt), // 날짜 형식 변환
+        thumbnail: user ? `data:image/jpeg;base64,${profileImageBase64}` : null // User의 profileImageBase64 추가
+      };
     }));
-
-      res.status(200).json(formattedBoards);
-    } catch (error) {
-      console.error('Error fetching board list:', error);
-      res.status(500).json({ message: '서버 오류' });
-    }
+    res.status(200).json(formattedBoards);
+  } catch (error) {
+    console.error('Error fetching board list:', error);
+    res.status(500).json({ message: '서버 오류' });
+  }
 };
 
 // 게시글 상세 내용 가져오기
@@ -48,24 +59,24 @@ exports.getBoardDetail = async (req, res) => {
 exports.writeBoard = async (req, res) => {
   try {
     console.log('탔냐');
-      // 자동으로 게시판 번호 생성
-      const lastBoard = await Board.findOne().sort({ boardNumber: -1 });
-      const boardNumber = lastBoard ? lastBoard.boardNumber + 1 : 1;
+    // 자동으로 게시판 번호 생성
+    const lastBoard = await Board.findOne().sort({ boardNumber: -1 });
+    const boardNumber = lastBoard ? lastBoard.boardNumber + 1 : 1;
 
-      const { title, content, userId, category } = req.body;
-      const newBoard = new Board({
-          boardNumber,
-          title,
-          content,
-          userId,
-          category,
-      });
+    const { title, content, userId, category } = req.body;
+    const newBoard = new Board({
+      boardNumber,
+      title,
+      content,
+      userId,
+      category,
+    });
 
-      const savedBoard = await newBoard.save();
-      res.status(201).json(savedBoard);
+    const savedBoard = await newBoard.save();
+    res.status(201).json(savedBoard);
   } catch (error) {
-      console.error('Error creating new board:', error);
-      res.status(500).json({ message: '서버 오류' });
+    console.error('Error creating new board:', error);
+    res.status(500).json({ message: '서버 오류' });
   }
 };
 
