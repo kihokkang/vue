@@ -2,13 +2,12 @@ const Board = require('../models/Board');
 const User = require('../models/User');
 const cache = require('memory-cache');
 
+const cacheKey = 'boardList';
+
 // 게시판 리스트 가져오기
 exports.getBoardList = async (req, res) => {
   try {
-
-    const cacheKey = 'boardList';
     const cachedData = cache.get(cacheKey);
-
     if (cachedData) {
       console.log('Returning cached data');
       return res.status(200).json(cachedData);
@@ -83,6 +82,9 @@ exports.writeBoard = async (req, res) => {
       userId,
       category,
     });
+
+    // 캐시 무효화
+    cache.del(cacheKey);
 
     const savedBoard = await newBoard.save();
     res.status(201).json(savedBoard);
